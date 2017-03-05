@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
@@ -14,19 +12,19 @@ import reduceDate from './utils/reduceDate';
 export default class DateReduceScene extends Component {
   static defaultProps = {
     date: new Date(),
-  }
+  };
 
   state = {
     date: this.props.date,
     reducedDate: reduceDate(this.props.date)
-  }
+  };
 
   onDateChange = (date: Date) => {
     this.setState({
       date,
       reducedDate: reduceDate(date)
     });
-  }
+  };
 
   render() {
     return (

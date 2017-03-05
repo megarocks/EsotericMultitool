@@ -14,7 +14,7 @@ export default (date: Date): number => {
     const reducedNumber = numbersArray.reduce((a, b) => {
         return Number(a) + Number(b);
     }, 0);
-    if (reducedNumber > 10) {
+    if (reducedNumber > 10) { // TODO unhardcode 10
         return reduceStringNumber(String(reducedNumber));
     }
     return reducedNumber;

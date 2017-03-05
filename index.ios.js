@@ -10,14 +10,15 @@ import {
   Navigator
 } from 'react-native';
 import DateReduceScene from './DateReduceScene'
+import ContactsListScene from './ContactsListScene'
 
 export default class EsotericMultitool extends Component {
   render() {
     return (
       <Navigator
-      initialRoute={{ title: 'Date Reduce', index: 0 }}
-      renderScene={(route, navigator) => {
-        return <DateReduceScene
+        initialRoute={{ title: 'Date Reduce', index: 0 }}
+        renderScene={(route, navigator) => {
+        return <ContactsListScene
          title={route.title}
          // Function to call when a new scene should be displayed
             onForward={() => {
@@ -36,8 +37,7 @@ export default class EsotericMultitool extends Component {
             }}
          />
       }}
-    />
-    );
+    />);
   }
 }
 
