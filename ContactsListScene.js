@@ -6,13 +6,11 @@
 import React, {Component, PropTypes} from 'react';
 import {
   StyleSheet,
-  Text,
   View
 } from 'react-native';
 import Contacts from 'react-native-unified-contacts';
-import {List, ListItem} from 'react-native-elements';
 import DateReduce from './features/dateReduce/DateReduce';
-
+import { Container, Header, Body, Title, Content, ListItem, Text } from 'native-base';
 
 
 import reduceDate from './utils/reduceDate';
@@ -59,17 +57,22 @@ export default class ContactsListScene extends Component {
     const {contacts} = this.state;
     console.log('contacts in render:', contacts);
     return (
-      <View style={styles.container}>
-        <List>
+      <Container>
+        <Header>
+          <Body>
+            <Title>Contacts</Title>
+          </Body>
+        </Header>
+        <Content>
           {
             contacts.map((person, index) => (
-              <ListItem key={index}
-                        title={this._getPersonTitle(person)}
-
-              />))
+              <ListItem key={index}>
+                <Text>{this._getPersonTitle(person)}</Text>
+              </ListItem>
+            ))
           }
-        </List>
-      </View>
+        </Content>
+      </Container>
     );
   }
 
