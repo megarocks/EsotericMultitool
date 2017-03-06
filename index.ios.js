@@ -4,40 +4,41 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   AppRegistry,
   Navigator
 } from 'react-native';
+
 import DateReduceScene from './DateReduceScene'
 import ContactsListScene from './ContactsListScene'
+import PersonDetailsScene from './features/contacts/PersonDetailsScene'
 
 export default class EsotericMultitool extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{ title: 'Date Reduce', index: 0 }}
+        initialRoute={{ title: 'Contacts', index: 0 }}
         renderScene={(route, navigator) => {
-        return <ContactsListScene
-         title={route.title}
-         // Function to call when a new scene should be displayed
-            onForward={() => {
-              const nextIndex = route.index + 1;
-              navigator.push({
-                title: 'Scene ' + nextIndex,
-                index: nextIndex,
-              });
-            }}
 
-            // Function to call to go back to the previous scene
-            onBack={() => {
-              if (route.index > 0) {
-                navigator.pop();
-              }
-            }}
-         />
+          if (route.title === 'Contacts') {
+            return <ContactsListScene title={route.title}
+                      onPersonSelect={ (person) => () => {
+                        console.log(person);
+                        navigator.push({
+                          title: 'Person Details',
+                          person,
+                          index: route.index + 1
+                        })
+                      }
+                     }/>
+          }
+          if (route.title === 'Person Details') {
+            return <PersonDetailsScene title={route.title} person={route.person}
+                     onBack={ () => route.index > 0 && navigator.pop() } />
+          }
       }}
-    />);
+      />);
   }
 }
 

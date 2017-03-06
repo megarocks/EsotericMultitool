@@ -4,12 +4,7 @@
  */
 
 import React, {Component, PropTypes} from 'react';
-import {
-  StyleSheet,
-  View
-} from 'react-native';
 import Contacts from 'react-native-unified-contacts';
-import DateReduce from './features/dateReduce/DateReduce';
 import { Container, Header, Body, Title, Content, ListItem, Text } from 'native-base';
 
 
@@ -28,8 +23,7 @@ export default class ContactsListScene extends Component {
   static defaultProps = {};
   static propTypes = {
     title: PropTypes.string.isRequired,
-    onForward: PropTypes.func.isRequired,
-    onBack: PropTypes.func.isRequired,
+    onPersonSelect: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -55,7 +49,6 @@ export default class ContactsListScene extends Component {
 
   render() {
     const {contacts} = this.state;
-    console.log('contacts in render:', contacts);
     return (
       <Container>
         <Header>
@@ -66,7 +59,7 @@ export default class ContactsListScene extends Component {
         <Content>
           {
             contacts.map((person, index) => (
-              <ListItem key={index}>
+              <ListItem key={index} onPress={this.props.onPersonSelect(person)}>
                 <Body>
                   <Text>{this._getPersonTitle(person)}</Text>
                   <Text note>{this._getPersonBiorhythms(person)}</Text>
@@ -97,29 +90,9 @@ export default class ContactsListScene extends Component {
     return `P: ${physical}, E: ${emotion}, IT: ${intellect}, IN: ${intuition}`;
   };
 
-  _renderSubtitle = (birthday: Object): any => {
-    return (
-      <View>
-        {
-          (birthday && birthday.year)
-            ? <DateReduce date={ this._convertBirthdayToDate(birthday) } />
-            : null
-        }
-      </View>
-    )
-  };
-
   _convertBirthdayToDate = (birthdayObj: Object): any => {
     const {year, month, day} = birthdayObj;
     return new Date(year, month - 1, day)
   }
 
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-    marginTop: 20
-  },
-});
