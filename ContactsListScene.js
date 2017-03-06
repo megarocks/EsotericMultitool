@@ -14,6 +14,7 @@ import { Container, Header, Body, Title, Content, ListItem, Text } from 'native-
 
 
 import reduceDate from './utils/reduceDate';
+import biorythm from './utils/biorythm';
 
 export default class ContactsListScene extends Component {
   constructor(props: Object) {
@@ -23,7 +24,6 @@ export default class ContactsListScene extends Component {
   state = {
     contacts: []
   };
-
 
   static defaultProps = {};
   static propTypes = {
@@ -67,7 +67,10 @@ export default class ContactsListScene extends Component {
           {
             contacts.map((person, index) => (
               <ListItem key={index}>
-                <Text>{this._getPersonTitle(person)}</Text>
+                <Body>
+                  <Text>{this._getPersonTitle(person)}</Text>
+                  <Text note>{this._getPersonBiorhythms(person)}</Text>
+                </Body>
               </ListItem>
             ))
           }
@@ -82,6 +85,16 @@ export default class ContactsListScene extends Component {
 
     const reducedDate = reduceDate(this._convertBirthdayToDate(birthday));
     return `${fullName} (${reducedDate})`
+  };
+
+  _getPersonBiorhythms = (personObj: Object): any => {
+    const { birthday } = personObj;
+    if (!birthday || !birthday.year) return null;
+
+    const biorythmData = biorythm(this._convertBirthdayToDate(birthday), new Date());
+
+    const { physical, emotion, intellect, intuition } = biorythmData;
+    return `P: ${physical}, E: ${emotion}, IT: ${intellect}, IN: ${intuition}`;
   };
 
   _renderSubtitle = (birthday: Object): any => {
