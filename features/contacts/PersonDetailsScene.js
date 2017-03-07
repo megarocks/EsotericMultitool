@@ -14,25 +14,43 @@ import {
   Button,
   Icon,
   Left,
-  Right
+  Right,
+  List,
+  ListItem
 } from 'native-base';
+import moment from 'moment'
+
+import {
+  convertBirthdayObjectToDate,
+  getNextBirthday
+} from '../../utils/birthdayDataService';
+
+import reduceDate from '../../utils/reduceDate';
 
 export default class PersonDetailsScene extends Component {
   constructor(props: Object) {
     super(props);
+
+    const birthday = convertBirthdayObjectToDate(this.props.person.birthday);
+    this.state = {
+      birthday
+    }
   }
 
   state = {};
-
   static defaultProps = {};
   static propTypes = {
     title: PropTypes.string.isRequired,
+    person: PropTypes.object.isRequired,
     onBack: PropTypes.func.isRequired,
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+
+  }
 
   render() {
+    const { person } = this.props;
     return (
       <Container>
         <Header>
@@ -42,15 +60,40 @@ export default class PersonDetailsScene extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>Person Details</Title>
+            <Title>{person.fullName}</Title>
           </Body>
           <Right></Right>
         </Header>
         <Content>
-          <Text>Person Details Will Be Here</Text>
+          { this.renderBirthdayInfo(person) }
         </Content>
       </Container>
     );
+  }
+
+  renderBirthdayInfo = (): List => {
+    const { birthday } = this.state;
+    return (
+      <List>
+        <ListItem itemHeader first><Text>Birthday</Text></ListItem>
+        <ListItem>
+          <Text>Birthday: {moment(birthday).format('D MMM YYYY')}</Text>
+        </ListItem>
+        <ListItem>
+          <Text>Next bDay: {getNextBirthday(birthday).fromNow()}</Text>
+        </ListItem>
+        <ListItem>
+          <Text>Reduced Birthday: {reduceDate(birthday.toDate())}</Text>
+        </ListItem>
+        <ListItem last>
+          <Text>Age: {moment().diff(birthday, 'years', true).toFixed(2)}</Text>
+        </ListItem>
+      </List>
+    )
+  };
+
+  _renderZodiacInfo = (person: Object): List => {
+
   }
 
 }

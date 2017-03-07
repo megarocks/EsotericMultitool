@@ -1,22 +1,22 @@
 // @flow
 
 export default (date: Date): number => {
-    const dateString =
-     String(date.getDate()) +
-     String(date.getMonth() + 1) +
-     String(date.getFullYear());
+  const dateString =
+    String(date.getDate()) +
+    String(date.getMonth() + 1) +
+    String(date.getFullYear());
 
-    return reduceStringNumber(dateString);
-  }
+  return reduceStringNumber(dateString);
 
-  function reduceStringNumber (strNumber: string): number {
+  function reduceStringNumber(strNumber: string): number {
     if (strNumber === '10') return 10;
     const numbersArray = strNumber.split('');
     const reducedNumber = numbersArray.reduce((a, b) => {
-        return Number(a) + Number(b);
+      return Number(a) + Number(b);
     }, 0);
     if (reducedNumber >= 10) {
-        return reduceStringNumber(String(reducedNumber));
+      return reduceStringNumber(String(reducedNumber));
     }
     return reducedNumber;
   }
+}
