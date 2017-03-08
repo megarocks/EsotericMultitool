@@ -9,8 +9,10 @@ export const convertBirthdayObjectToDate = (birthdayObj: Object): moment => {
   return moment({year, month: month - 1, day});
 };
 
-export const getNextBirthday = (birthday: Object): moment => {
-  return birthday >= moment()
-    ? birthday
-    : moment(birthday).add(1, 'y');
+export const getNextBirthday = (birthday: moment): moment => {
+  const now = moment();
+  const thisYearBirthday = moment(birthday).set('year', now.get('year'));
+  return thisYearBirthday >= now
+    ? thisYearBirthday
+    : thisYearBirthday.add(1, 'y');
 };
