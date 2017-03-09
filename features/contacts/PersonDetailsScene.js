@@ -26,6 +26,7 @@ import {
 } from '../../utils/birthdayDataService';
 
 import reduceDate from '../../utils/reduceDate';
+import { getZodiacData } from '../../utils/zodiac';
 
 export default class PersonDetailsScene extends Component {
   constructor(props: Object) {
@@ -65,7 +66,8 @@ export default class PersonDetailsScene extends Component {
           <Right></Right>
         </Header>
         <Content>
-          { this.renderBirthdayInfo(person) }
+          { this.renderBirthdayInfo() }
+          { this._renderZodiacInfo() }
         </Content>
       </Container>
     );
@@ -92,8 +94,20 @@ export default class PersonDetailsScene extends Component {
     )
   };
 
-  _renderZodiacInfo = (person: Object): List => {
-
+  _renderZodiacInfo = (): List => {
+    const { birthday } = this.state;
+    const zodiacData = getZodiacData(birthday);
+    return (
+      <List>
+        <ListItem itemHeader first><Text>Zodiac</Text></ListItem>
+        <ListItem>
+          <Text>Sign: { zodiacData.sign }</Text>
+        </ListItem>
+        <ListItem last>
+          <Text>Element: { zodiacData.element }</Text>
+        </ListItem>
+      </List>
+    )
   }
 
 }
