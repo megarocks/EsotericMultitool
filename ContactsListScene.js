@@ -48,7 +48,10 @@ export default class ContactsListScene extends Component {
   }
 
   render() {
-    const {contacts} = this.state;
+    const { contacts } = this.state;
+    const contactsWithBirthday = contacts.filter(contact => {
+      return contact.birthday && contact.birthday.year;
+    });
     return (
       <Container>
         <Header>
@@ -58,7 +61,7 @@ export default class ContactsListScene extends Component {
         </Header>
         <Content>
           {
-            contacts.map((person, index) => (
+              contactsWithBirthday.map((person, index) => (
               <ListItem key={index} onPress={this.props.onPersonSelect(person)}>
                 <Body>
                   <Text>{this._getPersonTitle(person)}</Text>
