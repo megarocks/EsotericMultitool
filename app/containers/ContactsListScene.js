@@ -8,8 +8,7 @@ import Contacts from 'react-native-unified-contacts';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as contactActions from '../actions/contactActions';
-import {Container, Header, Body, Title, Content, List, ListItem, Text} from 'native-base';
-
+import {Container, Header, Body, Title, Content, List, ListItem, Text, Spinner} from 'native-base';
 
 import reduceDate from '../utils/reduceDate';
 import biorythm from '../utils/biorythm';
@@ -52,7 +51,7 @@ class ContactsListScene extends Component {
   }
 
   render() {
-    const {contacts} = this.props;
+    const {contacts, inProgress} = this.props;
     const contactsWithBirthday = contacts.filter(contact => {
       return contact.birthday && contact.birthday.year;
     });
@@ -64,7 +63,9 @@ class ContactsListScene extends Component {
           </Body>
         </Header>
         <Content>
-          <List dataArray={contactsWithBirthday} renderRow={(person)=>
+          { inProgress
+            ? <Spinner />
+            : <List dataArray={contactsWithBirthday} renderRow={(person)=>
                     <ListItem onPress={this.props.onPersonSelect(person)}>
                                 <Body>
                                   <Text>{this._getPersonTitle(person)}</Text>
@@ -73,6 +74,8 @@ class ContactsListScene extends Component {
                     </ListItem>
                     }
           />
+          }
+
         </Content>
       </Container>
     );
@@ -104,7 +107,8 @@ class ContactsListScene extends Component {
 }
 
 export default connect(state => ({
-    contacts: state.contacts.contacts
+    contacts: state.contacts.contacts,
+    inProgress: state.contacts.fetching
   }),
   (dispatch) => ({
     actions: bindActionCreators(contactActions, dispatch)
