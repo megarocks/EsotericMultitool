@@ -15,8 +15,8 @@ import {
   Icon,
   Left,
   Right,
-  List,
-  ListItem
+  Card,
+  CardItem
 } from 'native-base';
 import moment from 'moment'
 
@@ -73,40 +73,41 @@ export default class PersonDetailsScene extends Component {
     );
   }
 
-  renderBirthdayInfo = (): List => {
+  renderBirthdayInfo = (): Card => {
     const { birthday } = this.state;
     return (
-      <List>
-        <ListItem itemHeader first><Text>Birthday</Text></ListItem>
-        <ListItem>
+      <Card>
+        <CardItem itemHeader first><Text>Birthday</Text></CardItem>
+        <CardItem>
           <Text>Birthday: {moment(birthday).format('D MMM YYYY')}</Text>
-        </ListItem>
-        <ListItem>
+        </CardItem>
+        <CardItem>
           <Text>Next bDay: {getNextBirthday(birthday).fromNow()}</Text>
-        </ListItem>
-        <ListItem>
+        </CardItem>
+        <CardItem>
           <Text>Reduced Birthday: {reduceDate(birthday.toDate())}</Text>
-        </ListItem>
-        <ListItem last>
+        </CardItem>
+        <CardItem last>
           <Text>Age: {moment().diff(birthday, 'years', true).toFixed(2)}</Text>
-        </ListItem>
-      </List>
+        </CardItem>
+      </Card>
     )
   };
 
-  _renderZodiacInfo = (): List => {
+  _renderZodiacInfo = (): Card => {
     const { birthday } = this.state;
-    const zodiacData = getZodiacData(birthday);
+    const zodiacData =  getZodiacData(birthday);
+
     return (
-      <List>
-        <ListItem itemHeader first><Text>Zodiac</Text></ListItem>
-        <ListItem>
-          <Text>Sign: { zodiacData.sign }</Text>
-        </ListItem>
-        <ListItem last>
+      <Card>
+        <CardItem header><Text>Zodiac</Text></CardItem>
+        <CardItem>
+          <Text>Sign: { zodiacData.sign } { zodiacData.symbol }</Text>
+        </CardItem>
+        <CardItem last>
           <Text>Element: { zodiacData.element }</Text>
-        </ListItem>
-      </List>
+        </CardItem>
+      </Card>
     )
   }
 

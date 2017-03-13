@@ -8,8 +8,9 @@ export const getZodiacData = (b: moment): Object => {
   const birthday = moment(b);
   const sign = _getZodiacSign(birthday);
   const element = _getZodiacElement(sign);
+  const symbol = _getSymbol(sign);
 
-  return { sign, element };
+  return { sign, element, symbol };
 }
 
 const _getZodiacSign = (birthday: moment): string => {
@@ -41,5 +42,26 @@ const _getZodiacElement = (sign: string): string => {
   else if (sign === 'Gemini' || sign === 'Libra' || sign === 'Aquarius') return 'air';
   else if (sign === 'Cancer' || sign === 'Scorpio' || sign === 'Pisces') return 'water';
   else throw new Error('Can`t identify zodiac element by given sign:', sign);
+
+};
+
+const _getSymbol = (sign: string): string => {
+
+  const symbols = {
+    'Aries': '♈',
+    'Taurus': '♉',
+    'Gemini': '♊',
+    'Cancer': '♋',
+    'Leo': '♌',
+    'Virgo': '♍',
+    'Libra': '♎',
+    'Scorpio': '♏',
+    'Sagittarius': '♐',
+    'Capricorn': '♑',
+    'Aquarius': '♒',
+    'Pisces': '♓',
+  };
+
+  return symbols[sign];
 
 };
