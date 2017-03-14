@@ -27,6 +27,7 @@ import {
 
 import reduceDate from '../../utils/reduceDate';
 import { getZodiacData } from '../../utils/zodiac';
+import biorythm from '../../utils/biorythm';
 
 export default class PersonDetailsScene extends Component {
   constructor(props: Object) {
@@ -68,6 +69,8 @@ export default class PersonDetailsScene extends Component {
         <Content>
           { this.renderBirthdayInfo() }
           { this._renderZodiacInfo() }
+          { this._renderBiorythmInfo() }
+          { this._renderBiorythmPhaseShiftInfo() }
         </Content>
       </Container>
     );
@@ -106,6 +109,59 @@ export default class PersonDetailsScene extends Component {
         </CardItem>
         <CardItem last>
           <Text>Element: { zodiacData.element }</Text>
+        </CardItem>
+      </Card>
+    )
+  }
+
+  //TODO extract to component
+  _renderBiorythmInfo = (): Card => {
+    const { birthday } = this.state;
+    const biorythmData =  biorythm(birthday, moment());
+
+    return (
+      <Card>
+        <CardItem header><Text>Biorythms ( -100% .. +100% )</Text></CardItem>
+        <CardItem>
+          <Text>Physical: {biorythmData.physical }</Text>
+        </CardItem>
+        <CardItem>
+          <Text>Emotional: {biorythmData.emotion }</Text>
+        </CardItem>
+        <CardItem>
+          <Text>Intellectual: {biorythmData.intellect }</Text>
+        </CardItem>
+        <CardItem>
+          <Text>Intuition: {biorythmData.intuition }</Text>
+        </CardItem>
+        <CardItem>
+          <Text>Average: {biorythmData.average }</Text>
+        </CardItem>
+      </Card>
+    )
+  }
+
+  _renderBiorythmPhaseShiftInfo = (): Card => {
+    const { birthday } = this.state;
+    const biorythmData =  biorythm(birthday, moment({y: 1988, M: 3, d: 4}));
+
+    return (
+      <Card>
+        <CardItem header><Text>Phase Shift ( 100% .. 0% )</Text></CardItem>
+        <CardItem>
+          <Text>Physical: { Math.abs(biorythmData.physical) }</Text>
+        </CardItem>
+        <CardItem>
+          <Text>Emotional: { Math.abs(biorythmData.emotion) }</Text>
+        </CardItem>
+        <CardItem>
+          <Text>Intellectual: { Math.abs(biorythmData.intellect) }</Text>
+        </CardItem>
+        <CardItem>
+          <Text>Intuition: { Math.abs(biorythmData.intuition) }</Text>
+        </CardItem>
+        <CardItem>
+          <Text>Average: { Math.abs(biorythmData.average) }</Text>
         </CardItem>
       </Card>
     )

@@ -13,20 +13,20 @@ function daysToMSeconds(days) {
   return days * 24 * 60 * 60 * 1000;
 }
 function calcBioValue(quotientValue, diff) {
-  return Math.sin((diff / quotientValue) * 2 * Math.PI) * 100;
+  return Math.sin(2 * Math.PI * diff / quotientValue) * 100;
 }
 
 export default function(birthday, calculationDate) {
 
   const dateDifference = calculationDate - birthday;
 
-  const biorythmForDay = {
-    physical: Math.round(calcBioValue(rhythms.physical, dateDifference)) ,
-    emotion: Math.round(calcBioValue(rhythms.emotion, dateDifference)),
-    intellect: Math.round(calcBioValue(rhythms.intellect, dateDifference)),
-    intuition: Math.round(calcBioValue(rhythms.intuition, dateDifference)),
-  };
+  const physical = Math.round(calcBioValue(rhythms.physical, dateDifference));
+  const emotion = Math.round(calcBioValue(rhythms.emotion, dateDifference));
+  const intellect = Math.round(calcBioValue(rhythms.intellect, dateDifference));
+  const intuition = Math.round(calcBioValue(rhythms.intuition, dateDifference));
 
-  return biorythmForDay;
+  return { physical, emotion, intellect, intuition,
+    average: (physical + emotion + intellect + intuition) / 4
+  };
 }
 
