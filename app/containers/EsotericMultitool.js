@@ -14,7 +14,7 @@ export default class EsotericMultitool extends Component {
             <Router>
                 <Scene key="root">
                     <Scene key="contactsList" component={ContactsListScene} title="Contacts" initial={true} />
-                    <Scene key="personDetails" component={PersonDetailsScene} title="Person Details" />
+                    <Scene key="personDetails" component={PersonDetailsScene} />
                 </Scene>
             </Router>
         )

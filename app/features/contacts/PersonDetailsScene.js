@@ -43,13 +43,8 @@ export default class PersonDetailsScene extends Component {
   state = {};
   static defaultProps = {};
   static propTypes = {
-    title: PropTypes.string.isRequired,
     person: PropTypes.object.isRequired,
   };
-
-  componentDidMount() {
-
-  }
 
   render() {
     const { person } = this.props;
@@ -57,7 +52,7 @@ export default class PersonDetailsScene extends Component {
       <Container>
         <Header>
           <Left>
-            <Button transparent onPress={Actions.contactsList}>
+            <Button transparent onPress={Actions.pop}>
               <Icon name='arrow-back' />
             </Button>
           </Left>

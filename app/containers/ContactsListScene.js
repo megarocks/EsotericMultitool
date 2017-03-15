@@ -50,6 +50,13 @@ class ContactsListScene extends Component {
     });
   }
 
+  onPersonSelect = (person) => () => {
+      Actions.personDetails({
+        person,
+          title: person.fullName
+      });
+  };
+
   render() {
     const {contacts, inProgress} = this.props;
     const contactsWithBirthday = contacts.filter(contact => {
@@ -66,7 +73,7 @@ class ContactsListScene extends Component {
           { inProgress
             ? <Spinner />
             : <List dataArray={contactsWithBirthday} renderRow={(person)=>
-                    <ListItem onPress={((person) => () => Actions.personDetails({person}))(person)}>
+                    <ListItem onPress={this.onPersonSelect(person)}>
                                 <Body>
                                   <Text>{this._getPersonTitle(person)}</Text>
                                   <Text note>{this._getPersonBiorhythms(person)}</Text>
