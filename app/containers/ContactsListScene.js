@@ -9,6 +9,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as contactActions from '../actions/contactActions';
 import {Container, Header, Body, Title, Content, List, ListItem, Text, Spinner} from 'native-base';
+import { Actions } from 'react-native-router-flux';
 
 import reduceDate from '../utils/reduceDate';
 import biorythm from '../utils/biorythm';
@@ -25,7 +26,6 @@ class ContactsListScene extends Component {
   static defaultProps = {};
   static propTypes = {
     title: PropTypes.string.isRequired,
-    onPersonSelect: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -66,7 +66,7 @@ class ContactsListScene extends Component {
           { inProgress
             ? <Spinner />
             : <List dataArray={contactsWithBirthday} renderRow={(person)=>
-                    <ListItem onPress={this.props.onPersonSelect(person)}>
+                    <ListItem onPress={((person) => () => Actions.personDetails({person}))(person)}>
                                 <Body>
                                   <Text>{this._getPersonTitle(person)}</Text>
                                   <Text note>{this._getPersonBiorhythms(person)}</Text>
@@ -75,7 +75,6 @@ class ContactsListScene extends Component {
                     }
           />
           }
-
         </Content>
       </Container>
     );

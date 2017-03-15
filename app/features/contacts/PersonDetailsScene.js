@@ -19,6 +19,7 @@ import {
   CardItem
 } from 'native-base';
 import moment from 'moment'
+import { Actions } from 'react-native-router-flux';
 
 import {
   convertBirthdayObjectToDate,
@@ -44,7 +45,6 @@ export default class PersonDetailsScene extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     person: PropTypes.object.isRequired,
-    onBack: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -57,7 +57,7 @@ export default class PersonDetailsScene extends Component {
       <Container>
         <Header>
           <Left>
-            <Button transparent onPress={this.props.onBack}>
+            <Button transparent onPress={Actions.contactsList}>
               <Icon name='arrow-back' />
             </Button>
           </Left>
