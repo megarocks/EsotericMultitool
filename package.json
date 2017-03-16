@@ -11,6 +11,7 @@
     "native-base": "^2.0.12",
     "react": "15.4.2",
     "react-native": "0.41.2",
+    "react-native-easy-grid": "^0.1.8",
     "react-native-elements": "^0.9.7",
     "react-native-router-flux": "^3.38.0",
     "react-native-unified-contacts": "^1.1.0",
