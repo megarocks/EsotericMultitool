@@ -32,7 +32,7 @@ export default class App extends Component {
             <Provider store={store}>
                 <Drawer ref={(ref) => { this._drawer = ref; }}
                         styles={drawerStyles}
-                        content={ <SideMenu />}
+                        content={ <SideMenu closeDrawerFunction={this.closeDrawer} />}
                         onClose={()=>this.closeDrawer()}>
                     <EsotericMultitool />
                 </Drawer>

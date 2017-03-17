@@ -7,13 +7,15 @@ import { Router, Scene } from 'react-native-router-flux';
 
 import ContactsListScene from './ContactsListScene'
 import PersonDetailsScene from '../features/contacts/PersonDetailsScene'
+import TodayScene from './TodayScene'
 
 export default class EsotericMultitool extends Component {
     render() {
         return (
             <Router>
                 <Scene key="root">
-                    <Scene key="contactsList" component={ContactsListScene} title="Contacts" initial={true} />
+                    <Scene key="todayScene" component={TodayScene} title="Today" initial={true} type="reset" />
+                    <Scene key="contactsList" component={ContactsListScene} title="Contacts" type="reset" />
                     <Scene key="personDetails" component={PersonDetailsScene} />
                 </Scene>
             </Router>

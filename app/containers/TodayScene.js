@@ -1,21 +1,19 @@
+/*
+ @flow
+
+ */
+
+import React, {Component, PropTypes} from 'react';
+import { Container, Header, Body, Title, Content, Text, Grid, Row } from 'native-base';
+
 import {
     StyleSheet,
     DatePickerIOS
 } from 'react-native';
 
-import React, {Component, PropTypes} from 'react';
-import {
-    Container,
-    Header,
-    Body,
-    Title,
-    Content,
-    Text,
-} from 'native-base';
-
 import reduceDate from '../utils/reduceDate';
 
-export default class DateReduceScene extends Component {
+export default class TodayScene extends Component {
     static defaultProps = {
         date: new Date(),
     };
@@ -41,17 +39,20 @@ export default class DateReduceScene extends Component {
                     </Body>
                 </Header>
                 <Content>
-                    <Text style={styles.number}>{this.state.reducedDate}</Text>
+                    <Text style={{fontSize: 128, alignSelf: 'center'}}>{this.state.reducedDate}</Text>
                     <DatePickerIOS
-                        date={this.state.date}
-                        mode="date"
-                        onDateChange={this.onDateChange}
+                            date={this.state.date}
+                            mode="date"
+                            onDateChange={this.onDateChange}
                     />
                 </Content>
             </Container>
         );
     }
+}
 
+const numberStyles = {
+    fontSize: 128
 }
 
 const styles = StyleSheet.create({
@@ -74,6 +75,5 @@ const styles = StyleSheet.create({
     }
 });
 
-DateReduceScene.propTypes = {
-    title: PropTypes.string.isRequired,
-};
+
+
