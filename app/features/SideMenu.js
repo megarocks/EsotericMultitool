@@ -35,7 +35,7 @@ export default class SideMenu extends Component {
                             <Body><Text>Date Reduce</Text></Body>
                             <Right><Icon name="arrow-forward" /></Right>
                         </ListItem>
-                        <ListItem icon>
+                        <ListItem icon onPress={ this.changeScene('settings') }>
                             <Left><Icon name="cog" /></Left>
                             <Body><Text>Settings</Text></Body>
                             <Right><Icon name="arrow-forward" /></Right>

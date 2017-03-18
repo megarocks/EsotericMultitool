@@ -5,8 +5,10 @@
 
 import contacts from './contacts';
 import today from './today';
+import settings from './settings';
 
 export {
   contacts,
-  today
+  today,
+  settings
 };

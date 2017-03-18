@@ -114,7 +114,7 @@ class ContactsListScene extends Component {
 
 export default connect(state => ({
     contacts: state.contacts.contacts,
-    inProgress: state.contacts.fetching
+    inProgress: state.contacts.fetching,
   }),
   (dispatch) => ({
     actions: bindActionCreators(contactActions, dispatch)

@@ -20,9 +20,11 @@ import {
 } from 'native-base';
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux';
+import {connect} from 'react-redux';
 
 import {
   convertBirthdayObjectToDate,
+  convertUserBirthSettingsToMoment,
   getNextBirthday
 } from '../../utils/birthdayDataService';
 
@@ -30,7 +32,7 @@ import reduceDate from '../../utils/reduceDate';
 import { getZodiacData } from '../../utils/zodiac';
 import biorythm from '../../utils/biorythm';
 
-export default class PersonDetailsScene extends Component {
+class PersonDetailsScene extends Component {
   constructor(props: Object) {
     super(props);
 
@@ -44,10 +46,12 @@ export default class PersonDetailsScene extends Component {
   static defaultProps = {};
   static propTypes = {
     person: PropTypes.object.isRequired,
+    userBirthday: PropTypes.object.isRequired,
   };
 
   render() {
     const { person } = this.props;
+    console.log(this.props.userBirthday);
     return (
       <Container>
         <Header>
@@ -138,7 +142,8 @@ export default class PersonDetailsScene extends Component {
 
   _renderBiorythmPhaseShiftInfo = (): Card => {
     const { birthday } = this.state;
-    const biorythmData =  biorythm(birthday, moment({y: 1990, M: 7, d: 18}));
+    const { userBirthday } = this.props;
+    const biorythmData =  biorythm(birthday, userBirthday);
 
     return (
       <Card>
@@ -163,4 +168,9 @@ export default class PersonDetailsScene extends Component {
   }
 
 }
+
+export default connect(({ settings }) => ({
+  userBirthday: convertUserBirthSettingsToMoment(settings.birthDate, settings.birthTime)
+  })
+)(PersonDetailsScene)
 
