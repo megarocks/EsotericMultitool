@@ -4,76 +4,58 @@
  */
 
 import React, {Component, PropTypes} from 'react';
-import { Container, Header, Body, Title, Content, Text, Grid, Row } from 'native-base';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {Container, Header, Body, Title, Content, Text, Grid, Row, Card} from 'native-base';
+import moment from 'moment';
 
-import {
-    StyleSheet,
-    DatePickerIOS
-} from 'react-native';
+import * as todayActions from '../actions/todayActions';
 
-import reduceDate from '../utils/reduceDate';
 
-export default class TodayScene extends Component {
-    static defaultProps = {
-        date: new Date(),
-    };
+class TodayScene extends Component {
 
-    state = {
-        date: this.props.date,
-        reducedDate: reduceDate(this.props.date)
-    };
+  componentDidMount() {
 
-    onDateChange = (date: Date) => {
-        this.setState({
-            date,
-            reducedDate: reduceDate(date)
-        });
-    };
+    const { actions } = this.props;
 
-    render() {
-        return (
-            <Container>
-                <Header>
-                    <Body>
-                    <Title>Date Reduce</Title>
-                    </Body>
-                </Header>
-                <Content>
-                    <Text style={{fontSize: 128, alignSelf: 'center'}}>{this.state.reducedDate}</Text>
-                    <DatePickerIOS
-                            date={this.state.date}
-                            mode="date"
-                            onDateChange={this.onDateChange}
-                    />
-                </Content>
-            </Container>
-        );
-    }
+    actions.setDate(moment());
+    actions.startPositionFetching();
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        actions.finishPositionFetching(position);
+      },
+      (error) => alert(JSON.stringify(error)),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+  }
+
+  render() {
+    const { position: { coords: { latitude = null, longitude = null } }, date = moment() } = this.props;
+    return (
+      <Container>
+        <Header>
+          <Body>
+          <Title>Today</Title>
+          </Body>
+        </Header>
+        <Content>
+          <Text>{ date.toString() }</Text>
+          <Text>Latitude: { latitude }, Longitude: { longitude }</Text>
+        </Content>
+      </Container>
+    );
+  }
 }
 
-const numberStyles = {
-    fontSize: 128
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F5FCFF',
-    },
-    inputs: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        marginBottom: 50
-    },
-    outputs: {
-        flex: 2,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    number: {
-        fontSize: 128,
-    }
-});
-
+export default connect(state => ({
+    position: state.today.position,
+    date: state.today.date,
+    inProgress: state.today.fetching
+  }),
+  (dispatch) => ({
+    actions: bindActionCreators(todayActions, dispatch)
+  })
+)(TodayScene)
 
 

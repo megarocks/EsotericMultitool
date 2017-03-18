@@ -138,7 +138,7 @@ export default class PersonDetailsScene extends Component {
 
   _renderBiorythmPhaseShiftInfo = (): Card => {
     const { birthday } = this.state;
-    const biorythmData =  biorythm(birthday, moment({y: 1988, M: 3, d: 4}));
+    const biorythmData =  biorythm(birthday, moment({y: 1990, M: 7, d: 18}));
 
     return (
       <Card>

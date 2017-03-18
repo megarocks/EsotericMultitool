@@ -21,13 +21,18 @@ export default class SideMenu extends Component {
                 <Row size={80}>
                     <List style={ menuListStyles }>
                         <ListItem icon onPress={ this.changeScene('todayScene') }>
-                            <Left><Icon name="plane" /></Left>
-                            <Body><Text>Date Info</Text></Body>
+                            <Left><Icon name="clock" /></Left>
+                            <Body><Text>Today</Text></Body>
                             <Right><Icon name="arrow-forward" /></Right>
                         </ListItem>
                         <ListItem icon onPress={ this.changeScene('contactsList') }>
                             <Left><Icon name="person" /></Left>
                             <Body><Text>Contacts</Text></Body>
+                            <Right><Icon name="arrow-forward" /></Right>
+                        </ListItem>
+                        <ListItem icon onPress={ this.changeScene('dateReduce') }>
+                            <Left><Icon name="calendar"/></Left>
+                            <Body><Text>Date Reduce</Text></Body>
                             <Right><Icon name="arrow-forward" /></Right>
                         </ListItem>
                         <ListItem icon>

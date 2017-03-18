@@ -4,7 +4,9 @@
 
 
 import contacts from './contacts';
+import today from './today';
 
 export {
-    contacts
+  contacts,
+  today
 };
