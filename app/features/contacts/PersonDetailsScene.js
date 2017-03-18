@@ -170,7 +170,7 @@ class PersonDetailsScene extends Component {
 }
 
 export default connect(({ settings }) => ({
-  userBirthday: convertUserBirthSettingsToMoment(settings.birthDate, settings.birthTime)
+  userBirthday: convertUserBirthSettingsToMoment(settings.birthDate)
   })
 )(PersonDetailsScene)
 

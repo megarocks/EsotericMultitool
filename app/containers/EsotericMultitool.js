@@ -16,10 +16,10 @@ export default class EsotericMultitool extends Component {
         return (
             <Router>
                 <Scene key="root">
-                    <Scene key="todayScene" component={TodayScene} title="Today" type="reset" />
+                    <Scene key="todayScene" component={TodayScene} title="Today" initial={true} type="reset" />
                     <Scene key="contactsList" component={ContactsListScene} title="Contacts" type="reset" />
                     <Scene key="dateReduce" component={DateReduce} title="Date Reduce" type="reset" />
-                    <Scene key="settings" component={SettingsScene} title="Settings" initial={true} type="reset" />
+                    <Scene key="settings" component={SettingsScene} title="Settings" type="reset" />
                     <Scene key="personDetails" component={PersonDetailsScene} />
                 </Scene>
             </Router>

@@ -17,7 +17,7 @@ export const getNextBirthday = (birthday: moment): moment => {
     : thisYearBirthday.add(1, 'y');
 };
 
-export const convertUserBirthSettingsToMoment = (birthDate: string, birthTime: string) => {
+export const convertUserBirthSettingsToMoment = (birthDate: string, birthTime: ?string) => {
   let format = 'YYYY-MM-DD';
   if (!birthTime) {
     return moment(birthDate, format);
