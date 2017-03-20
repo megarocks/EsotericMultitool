@@ -15,6 +15,7 @@ import EsotericMultitool from './EsotericMultitool';
 import {Drawer} from 'native-base';
 
 import SideMenu from '../features/SideMenu';
+import moment from 'moment';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const reducer = combineReducers(reducers);
@@ -38,6 +39,35 @@ export default class App extends Component {
   openDrawer = () => {
     this._drawer._root.open()
   };
+
+  componentDidMount = () => {
+
+    moment.relativeTimeThreshold('m', 1440);
+
+    moment.updateLocale('en', {
+      relativeTime : {
+        future: "in %s",
+        past:   "%s ago",
+        s: function (number, withoutSuffix, key, isFuture){
+          return '00:' + (number<10 ? '0':'') + number + ' minutes';
+        },
+        m:  "01:00 minutes",
+        mm: function (number, withoutSuffix, key, isFuture){
+          const hours = Math.floor(number/60);
+          const minutes = number % 60;
+          return `${hours} hours ${minutes} minutes`;
+        },
+        h:  "an hour",
+        hh: "%d hours",
+        d:  "a day",
+        dd: "%d days",
+        M:  "a month",
+        MM: "%d months",
+        y:  "a year",
+        yy: "%d years"
+      }
+    });
+  }
 
   render() {
     return (
